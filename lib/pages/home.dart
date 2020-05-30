@@ -118,8 +118,8 @@ class _HomePageState extends State<HomePage> {
 
   _downloadImage() async {
     Navigator.pop(context);
-    Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([PermissionGroup.photos]);
-    if (permissions[PermissionGroup.photos] == PermissionStatus.granted) {
+    Map<Permission, PermissionStatus> statuses = await [Permission.photos].request();
+    if (statuses[Permission.photos] == PermissionStatus.granted) {
       final bytes = await DefaultAssetBundle.of(context).load('assets/images/3x/erweima.png');
       final result = await ImageGallerySaver.saveImage(bytes.buffer.asUint8List());
       if (result) {
