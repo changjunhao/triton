@@ -77,7 +77,7 @@ class _InfoPageState extends State<InfoPage> {
                     new Row(
                       children: <Widget>[
                         new Icon(
-                          new IconData(0xe885, fontFamily: 'MaterialIcons'),
+                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
@@ -116,7 +116,7 @@ class _InfoPageState extends State<InfoPage> {
                     new Row(
                       children: <Widget>[
                         new Icon(
-                          new IconData(0xe885, fontFamily: 'MaterialIcons'),
+                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
@@ -155,7 +155,7 @@ class _InfoPageState extends State<InfoPage> {
                     new Row(
                       children: <Widget>[
                         new Icon(
-                          new IconData(0xe885, fontFamily: 'MaterialIcons'),
+                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
@@ -195,7 +195,7 @@ class _InfoPageState extends State<InfoPage> {
                     new Row(
                       children: <Widget>[
                         new Icon(
-                          new IconData(0xe885, fontFamily: 'MaterialIcons'),
+                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
@@ -235,7 +235,7 @@ class _InfoPageState extends State<InfoPage> {
                     new Row(
                       children: <Widget>[
                         new Icon(
-                          new IconData(0xe885, fontFamily: 'MaterialIcons'),
+                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
@@ -274,7 +274,7 @@ class _InfoPageState extends State<InfoPage> {
                     new Row(
                       children: <Widget>[
                         new Icon(
-                          new IconData(0xe885, fontFamily: 'MaterialIcons'),
+                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
