@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
     if (statuses[Permission.photos] == PermissionStatus.granted) {
       final bytes = await DefaultAssetBundle.of(context).load('assets/images/3x/erweima.png');
       final result = await ImageGallerySaver.saveImage(bytes.buffer.asUint8List());
-      if (result) {
+      if (result['isSuccess']) {
         showCupertinoDialog(context: context, builder: (BuildContext context){
           return new CupertinoAlertDialog(
             content: Text('下载完成，请到相册查看'),
