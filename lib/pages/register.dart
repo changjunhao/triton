@@ -4,7 +4,7 @@ import 'dart:async';
 import '../utils/request.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({Key key, this.title}) : super(key: key);
+  RegisterPage({required Key key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -19,7 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String _passwordRepeat = '';
   String _code = '';
   int _seconds = 0;
-  Timer _timer;
+  late Timer _timer;
   String _verifyStr = '获取验证码';
 
   void _handlePhone(String text) {
@@ -48,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   _cancelTimer() {
     _seconds = 0;
-    _timer?.cancel();
+    _timer.cancel();
   }
 
   Future _handleRegister() async {

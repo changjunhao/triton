@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/request.dart';
 
 class InfoPage extends StatefulWidget {
-  InfoPage({Key key, this.title}) : super(key: key);
+  InfoPage({required Key key, required this.title}) : super(key: key);
 
   final String title;
 

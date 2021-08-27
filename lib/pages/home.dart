@@ -9,7 +9,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  HomePage({required Key key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -39,11 +39,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   _handleLogout() {
-    final returnTickets = <Future>[getTemporaryDirectory(), SharedPreferences.getInstance()];
+    final returnTickets = <Future>[getApplicationDocumentsDirectory(), SharedPreferences.getInstance()];
     Future.wait(returnTickets).then((result) async {
-      Directory tempDir = result[0];
-      String tempPath = tempDir.path;
-      final cj = new PersistCookieJar(dir: tempPath);
+      Directory appDocDir = result[0];
+      String appDocPath = appDocDir.path;
+      final cj = PersistCookieJar(ignoreExpires: true, storage: FileStorage(appDocPath +"/.cookies/" ));
       cj.delete(Uri.parse('https://vip.meimiaoip.com'));
       SharedPreferences prefs = result[1];
       await prefs.clear();
@@ -326,12 +326,12 @@ class _HomePageState extends State<HomePage> {
 
 class VoucherWidget extends StatelessWidget {
   VoucherWidget({
-    this.amount,
-    this.quota,
-    this.amountColor,
-    this.buttonColor,
-    this.buttonFontColor,
-    this.textColor,
+    required this.amount,
+    required this.quota,
+    required this.amountColor,
+    required this.buttonColor,
+    required this.buttonFontColor,
+    required this.textColor,
   });
   final int amount;
   final int quota;

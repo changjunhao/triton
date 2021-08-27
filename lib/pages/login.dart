@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/request.dart';
 
 class Login extends StatefulWidget {
-  Login({Key key, this.title}) : super(key: key);
+  Login({required Key key, required this.title}) : super(key: key);
 
   final String title;
   

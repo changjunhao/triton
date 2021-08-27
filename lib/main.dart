@@ -15,14 +15,14 @@ import 'utils/request.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Directory tempDir = await getTemporaryDirectory();
-  String tempPath = tempDir.path;
-  final cj = new PersistCookieJar(dir: tempPath);
+  Directory appDocDir = await getApplicationDocumentsDirectory();
+  String appDocPath = appDocDir.path;
+  var cj = PersistCookieJar(ignoreExpires: true, storage: FileStorage(appDocPath +"/.cookies/" ));
 
   dio.interceptors..add(CookieManager(cj))..add(LogInterceptor());
 
   Future<bool> _getLoginStatus() async {
-    List<Cookie> results = cj.loadForRequest(Uri.parse('https://vip.meimiaoip.com'));
+    List<Cookie> results = await cj.loadForRequest(Uri.parse('https://vip.meimiaoip.com'));
     try {
       Cookie usersign = results.firstWhere((Cookie cookie) => cookie.toString().indexOf('usersign') != -1);
       if (SerializableCookie(usersign).isExpired()) {
@@ -65,15 +65,15 @@ class TritonApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map routes = <String, WidgetBuilder>{
-      '/home': (BuildContext context) => new HomePage(title: title),
-      '/login': (BuildContext context) => new Login(title: '登录'),
-      '/info': (BuildContext context) => new InfoPage(title: '企业信息'),
-      '/register': (BuildContext context) => new RegisterPage(title: '注册'),
+    final Map<String, WidgetBuilder> routes = {
+      '/home': (BuildContext context) => new HomePage(title: title, key: Key("Home"),),
+      '/login': (BuildContext context) => new Login(title: '登录', key: Key("Login"),),
+      '/info': (BuildContext context) => new InfoPage(title: '企业信息', key: Key("Info"),),
+      '/register': (BuildContext context) => new RegisterPage(title: '注册', key: Key("Register"),),
     };
     final Widget home = loginStatus
-        ? infoStatus ? new HomePage(title: title) : new InfoPage(title: '企业信息')
-        : new Login(title: '登录');
+        ? infoStatus ? new HomePage(title: title, key: Key("Home"),) : new InfoPage(title: '企业信息', key: Key("Info"),)
+        : new Login(title: '登录', key: Key("Login"),);
 
     if (Platform.isIOS) {
       return CupertinoApp(
@@ -91,9 +91,7 @@ class TritonApp extends StatelessWidget {
     }
     return MaterialApp(
       title: title,
-      theme: ThemeData(
-        primarySwatch: Colors.white,
-      ),
+      theme: ThemeData.light(),
       routes: routes,
       home: home,
       localizationsDelegates: [
