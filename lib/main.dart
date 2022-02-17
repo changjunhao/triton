@@ -24,7 +24,7 @@ void main() async {
   Future<bool> _getLoginStatus() async {
     List<Cookie> results = await cj.loadForRequest(Uri.parse('https://vip.meimiaoip.com'));
     try {
-      Cookie usersign = results.firstWhere((Cookie cookie) => cookie.toString().indexOf('usersign') != -1);
+      Cookie usersign = results.firstWhere((Cookie cookie) => cookie.toString().contains('usersign'));
       if (SerializableCookie(usersign).isExpired()) {
         return false;
       }
@@ -66,26 +66,26 @@ class TritonApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, WidgetBuilder> routes = {
-      '/home': (BuildContext context) => new HomePage(title: title, key: Key("Home"),),
-      '/login': (BuildContext context) => new Login(title: '登录', key: Key("Login"),),
-      '/info': (BuildContext context) => new InfoPage(title: '企业信息', key: Key("Info"),),
-      '/register': (BuildContext context) => new RegisterPage(title: '注册', key: Key("Register"),),
+      '/home': (BuildContext context) => HomePage(title: title, key: const Key("Home"),),
+      '/login': (BuildContext context) => Login(title: '登录', key: const Key("Login"),),
+      '/info': (BuildContext context) => InfoPage(title: '企业信息', key: const Key("Info"),),
+      '/register': (BuildContext context) => RegisterPage(title: '注册', key: const Key("Register"),),
     };
     final Widget home = loginStatus
-        ? infoStatus ? new HomePage(title: title, key: Key("Home"),) : new InfoPage(title: '企业信息', key: Key("Info"),)
-        : new Login(title: '登录', key: Key("Login"),);
+        ? infoStatus ? HomePage(title: title, key: const Key("Home"),) : InfoPage(title: '企业信息', key: const Key("Info"),)
+        : Login(title: '登录', key: const Key("Login"),);
 
     if (Platform.isIOS) {
       return CupertinoApp(
         title: title,
         routes: routes,
         home: home,
-        localizationsDelegates: [
+        localizationsDelegates: const [
           GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        supportedLocales: [
-          const Locale('zh'), // English
+        supportedLocales: const [
+          Locale('zh'), // English
         ],
       );
     }
@@ -94,12 +94,12 @@ class TritonApp extends StatelessWidget {
       theme: ThemeData.light(),
       routes: routes,
       home: home,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: [
-        const Locale('zh'), // English
+      supportedLocales: const [
+        Locale('zh'), // English
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 //import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/request.dart';
 
@@ -23,9 +24,9 @@ class _InfoPageState extends State<InfoPage> {
   String _wechat = '';
   String _code = '';
 
-  FocusNode companyFocusNode = new FocusNode();
+  FocusNode companyFocusNode = FocusNode();
 
-  GlobalKey<FormState> _infoFormKey = new GlobalKey();
+  final GlobalKey<FormState> _infoFormKey = GlobalKey();
 
   Future _handleAddUserInfo() async {
     Response response = await dio.post(
@@ -38,14 +39,16 @@ class _InfoPageState extends State<InfoPage> {
           'wechat': _wechat,
           'invitation_code': _code,
         });
-    print(response);
+    if (kDebugMode) {
+      print(response);
+    }
     if (response.data['errno'] != 0) {
       showCupertinoDialog(context: context, builder: (BuildContext context){
-        return new CupertinoAlertDialog(
+        return CupertinoAlertDialog(
           content: Text(response.data['errmsg']),
         );
       });
-      new Timer(new Duration(seconds: 2), () {
+      Timer(const Duration(seconds: 2), () {
         Navigator.pop(context);
       });
     } else {
@@ -65,26 +68,26 @@ class _InfoPageState extends State<InfoPage> {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text(widget.title),
-        backgroundColor: Color.fromRGBO(255, 255, 255, 0.5),
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.5),
       ),
       child: SafeArea(
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(16), 
-            child: new Form(
+            padding: const EdgeInsets.all(16),
+            child: Form(
                 key: _infoFormKey,
-                child: new Column(
+                child: Column(
                   children: <Widget>[
-                    new Row(
-                      children: <Widget>[
-                        new Icon(
-                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
+                    Row(
+                      children: const <Widget>[
+                        Icon(
+                          IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
                         Padding(padding: EdgeInsets.only(left: 4)),
-                        new Text(
+                        Text(
                           '企业名称',
-                          style: new TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             color: Color.fromRGBO(51, 51, 51, 1),
                             fontWeight: FontWeight.bold
@@ -92,38 +95,38 @@ class _InfoPageState extends State<InfoPage> {
                         )
                       ],
                     ),
-                    new Container(
+                    Container(
                       height: 46,
-                      margin: EdgeInsets.only(top: 10, bottom: 15),
+                      margin: const EdgeInsets.only(top: 10, bottom: 15),
                       child: CupertinoTextField(
-                        padding: EdgeInsets.only(left: 15.0),
+                        padding: const EdgeInsets.only(left: 15.0),
                         placeholder: '请输入真实的企业名称',
                         onChanged: (value) {
                           setState(() {
                             _company = value;
                           });
                         },
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color.fromRGBO(51, 51, 51, 1),
                           fontSize: 15,
                         ),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             border: null,
                             color: Color.fromRGBO(242, 242, 242, 1)
                         ),
                       ),
                     ),
-                    new Row(
-                      children: <Widget>[
-                        new Icon(
-                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
+                    Row(
+                      children: const <Widget>[
+                        Icon(
+                          IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
                         Padding(padding: EdgeInsets.only(left: 4)),
-                        new Text(
+                        Text(
                             '联系人',
-                            style: new TextStyle(
+                            style: TextStyle(
                                 fontSize: 16,
                                 color: Color.fromRGBO(51, 51, 51, 1),
                                 fontWeight: FontWeight.bold
@@ -131,38 +134,38 @@ class _InfoPageState extends State<InfoPage> {
                         )
                       ],
                     ),
-                    new Container(
+                    Container(
                       height: 46,
-                      margin: EdgeInsets.only(top: 10, bottom: 15),
+                      margin: const EdgeInsets.only(top: 10, bottom: 15),
                       child: CupertinoTextField(
-                        padding: EdgeInsets.only(left: 15.0),
+                        padding: const EdgeInsets.only(left: 15.0),
                         placeholder: '请输入联系人姓名',
                         onChanged: (value) {
                           setState(() {
                             _name = value;
                           });
                         },
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color.fromRGBO(51, 51, 51, 1),
                           fontSize: 15,
                         ),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             border: null,
                             color: Color.fromRGBO(242, 242, 242, 1)
                         ),
                       ),
                     ),
-                    new Row(
-                      children: <Widget>[
-                        new Icon(
-                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
+                    Row(
+                      children: const <Widget>[
+                        Icon(
+                          IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
                         Padding(padding: EdgeInsets.only(left: 4)),
-                        new Text(
+                        Text(
                             '联系电话',
-                            style: new TextStyle(
+                            style: TextStyle(
                                 fontSize: 16,
                                 color: Color.fromRGBO(51, 51, 51, 1),
                                 fontWeight: FontWeight.bold
@@ -170,11 +173,11 @@ class _InfoPageState extends State<InfoPage> {
                         )
                       ],
                     ),
-                    new Container(
+                    Container(
                       height: 46,
-                      margin: EdgeInsets.only(top: 10, bottom: 15),
+                      margin: const EdgeInsets.only(top: 10, bottom: 15),
                       child: CupertinoTextField(
-                        padding: EdgeInsets.only(left: 15.0),
+                        padding: const EdgeInsets.only(left: 15.0),
                         keyboardType: TextInputType.phone,
                         placeholder: '请输入真实的联系电话',
                         onChanged: (value) {
@@ -182,27 +185,27 @@ class _InfoPageState extends State<InfoPage> {
                             _phone = value;
                           });
                         },
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color.fromRGBO(51, 51, 51, 1),
                           fontSize: 15,
                         ),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             border: null,
                             color: Color.fromRGBO(242, 242, 242, 1)
                         ),
                       ),
                     ),
-                    new Row(
-                      children: <Widget>[
-                        new Icon(
-                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
+                    Row(
+                      children: const <Widget>[
+                        Icon(
+                          IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
                         Padding(padding: EdgeInsets.only(left: 4)),
-                        new Text(
+                        Text(
                             '邮箱',
-                            style: new TextStyle(
+                            style: TextStyle(
                                 fontSize: 16,
                                 color: Color.fromRGBO(51, 51, 51, 1),
                                 fontWeight: FontWeight.bold
@@ -210,11 +213,11 @@ class _InfoPageState extends State<InfoPage> {
                         )
                       ],
                     ),
-                    new Container(
+                    Container(
                       height: 46,
-                      margin: EdgeInsets.only(top: 10, bottom: 15),
+                      margin: const EdgeInsets.only(top: 10, bottom: 15),
                       child: CupertinoTextField(
-                        padding: EdgeInsets.only(left: 15.0),
+                        padding: const EdgeInsets.only(left: 15.0),
                         keyboardType: TextInputType.emailAddress,
                         placeholder: '请输入邮箱',
                         onChanged: (value) {
@@ -222,27 +225,27 @@ class _InfoPageState extends State<InfoPage> {
                             _email = value;
                           });
                         },
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color.fromRGBO(51, 51, 51, 1),
                           fontSize: 15,
                         ),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             border: null,
                             color: Color.fromRGBO(242, 242, 242, 1)
                         ),
                       ),
                     ),
-                    new Row(
-                      children: <Widget>[
-                        new Icon(
-                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
+                    Row(
+                      children: const <Widget>[
+                        Icon(
+                          IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
                         Padding(padding: EdgeInsets.only(left: 4)),
-                        new Text(
+                        Text(
                             '微信',
-                            style: new TextStyle(
+                            style: TextStyle(
                                 fontSize: 16,
                                 color: Color.fromRGBO(51, 51, 51, 1),
                                 fontWeight: FontWeight.bold
@@ -250,38 +253,38 @@ class _InfoPageState extends State<InfoPage> {
                         )
                       ],
                     ),
-                    new Container(
+                    Container(
                       height: 46,
-                      margin: EdgeInsets.only(top: 10, bottom: 15),
+                      margin: const EdgeInsets.only(top: 10, bottom: 15),
                       child: CupertinoTextField(
-                        padding: EdgeInsets.only(left: 15.0),
+                        padding: const EdgeInsets.only(left: 15.0),
                         placeholder: '请输入微信号',
                         onChanged: (value) {
                           setState(() {
                             _wechat = value;
                           });
                         },
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color.fromRGBO(51, 51, 51, 1),
                           fontSize: 15,
                         ),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             border: null,
                             color: Color.fromRGBO(242, 242, 242, 1)
                         ),
                       ),
                     ),
-                    new Row(
-                      children: <Widget>[
-                        new Icon(
-                          const IconData(0xe885, fontFamily: 'MaterialIcons'),
+                    Row(
+                      children: const <Widget>[
+                        Icon(
+                          IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
                           size: 8,
                         ),
                         Padding(padding: EdgeInsets.only(left: 4)),
-                        new Text(
+                        Text(
                             '邀请码',
-                            style: new TextStyle(
+                            style: TextStyle(
                                 fontSize: 16,
                                 color: Color.fromRGBO(51, 51, 51, 1),
                                 fontWeight: FontWeight.bold
@@ -289,11 +292,11 @@ class _InfoPageState extends State<InfoPage> {
                         )
                       ],
                     ),
-                    new Container(
+                    Container(
                       height: 46,
-                      margin: EdgeInsets.only(top: 10, bottom: 15),
+                      margin: const EdgeInsets.only(top: 10, bottom: 15),
                       child: CupertinoTextField(
-                        padding: EdgeInsets.only(left: 15.0),
+                        padding: const EdgeInsets.only(left: 15.0),
                         keyboardType: TextInputType.number,
                         placeholder: '请输入邀请码',
                         onChanged: (value) {
@@ -301,27 +304,27 @@ class _InfoPageState extends State<InfoPage> {
                             _code = value;
                           });
                         },
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color.fromRGBO(51, 51, 51, 1),
                           fontSize: 15,
                         ),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             border: null,
                             color: Color.fromRGBO(242, 242, 242, 1)
                         ),
                       ),
                     ),
-                    new Container(
+                    Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.only(top: 15),
-                      child: new Row(
+                      margin: const EdgeInsets.only(top: 15),
+                      child: Row(
                         children: <Widget>[
-                          new Expanded(
-                            child: new CupertinoButton(
-                              color: Color.fromRGBO(224, 182, 109, 1),
+                          Expanded(
+                            child: CupertinoButton(
+                              color: const Color.fromRGBO(224, 182, 109, 1),
                               pressedOpacity: 0.5,
                               onPressed: _handleAddUserInfo,
-                              child: Text("完成"),
+                              child: const Text("完成"),
                             ),
                           ),
                         ],

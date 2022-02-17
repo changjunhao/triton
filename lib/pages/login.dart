@@ -51,11 +51,11 @@ class _LoginPageState extends State<Login> {
     }
     if (response.data['errno'] != 0) {
       showCupertinoDialog(context: context, builder: (BuildContext context){
-        return new CupertinoAlertDialog(
+        return CupertinoAlertDialog(
           content: Text(response.data['errmsg']),
         );
       });
-      new Timer(new Duration(seconds: 2), () {
+      Timer(const Duration(seconds: 2), () {
         Navigator.pop(context);
       });
     }
@@ -66,17 +66,17 @@ class _LoginPageState extends State<Login> {
     return CupertinoPageScaffold(
       child: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 36),
+          margin: const EdgeInsets.symmetric(horizontal: 36),
           alignment: Alignment.center,
           child: Column(
               children: <Widget>[
-                new Container(
+                Container(
                   padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 88),
                   child: Image.asset('assets/images/logo.png'),
                 ),
-                new Container(
+                Container(
                     margin: const EdgeInsets.only(top: 9.0),
-                    child: new Text(
+                    child: const Text(
                       '美秒新营销',
                       style: TextStyle(
                           color: Color.fromRGBO(224, 182, 109, 1.0),
@@ -84,33 +84,33 @@ class _LoginPageState extends State<Login> {
                       ),
                     )
                 ),
-                new Text(
+                const Text(
                   '短视频营销一站式服务平台',
                   style: TextStyle(
                       color: Color.fromRGBO(224, 182, 109, 1.0),
                       fontSize: 12
                   ),
                 ),
-                new Container(
-                  margin: EdgeInsets.only(top: 36.0),
+                Container(
+                  margin: const EdgeInsets.only(top: 36.0),
                   height: 46,
                   child: CupertinoTextField(
-                    padding: EdgeInsets.only(left: 15.0),
+                    padding: const EdgeInsets.only(left: 15.0),
                     keyboardType: TextInputType.phone,
                     maxLength: 11,
                     placeholder: '请输入手机号',
                     onChanged: _handlePhone,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color.fromRGBO(51, 51, 51, 1),
                       fontSize: 15,
                     ),
                     prefix: Container(
                       height: 46,
                       width: 73,
-                      color: Color.fromRGBO(219, 219, 219, 1),
+                      color: const Color.fromRGBO(219, 219, 219, 1),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
+                        children: const <Widget>[
                           Text('+86',
                             style: TextStyle(
                               color: Color.fromRGBO(51, 51, 51, 1),
@@ -120,36 +120,36 @@ class _LoginPageState extends State<Login> {
                         ],
                       ),
                     ),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       border: null,
                       color: Color.fromRGBO(242, 242, 242, 1)
                     ),
                   ),
                 ),
-                new Container(
-                  margin: EdgeInsets.only(top: 20.0),
+                Container(
+                  margin: const EdgeInsets.only(top: 20.0),
                   height: 46,
                   child: CupertinoTextField(
-                    padding: EdgeInsets.only(left: 15.0),
+                    padding: const EdgeInsets.only(left: 15.0),
                     placeholder: '请输入密码',
                     obscureText: true,
                     onChanged: _handlePassword,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color.fromRGBO(51, 51, 51, 1),
                       fontSize: 15,
                     ),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         border: null,
                         color: Color.fromRGBO(242, 242, 242, 1)
                     ),
                   ),
                 ),
-                new Container(
+                Container(
                   alignment: Alignment.centerRight,
-                  child: new CupertinoButton(
+                  child: CupertinoButton(
                     pressedOpacity: 0.5,
                     onPressed: () => Navigator.of(context).pushNamed('/register'),
-                    child: Text(
+                    child: const Text(
                       '注册',
                       style: TextStyle(
                         color: Color.fromRGBO(51, 51, 51, 1),
@@ -158,16 +158,16 @@ class _LoginPageState extends State<Login> {
                     ),
                   ),
                 ),
-                new Container(
+                Container(
                   alignment: Alignment.center,
-                  child: new Row(
+                  child: Row(
                     children: <Widget>[
-                      new Expanded(
-                        child: new CupertinoButton(
-                          color: Color.fromRGBO(224, 182, 109, 1),
+                      Expanded(
+                        child: CupertinoButton(
+                          color: const Color.fromRGBO(224, 182, 109, 1),
                           pressedOpacity: 0.5,
                           onPressed: _handleSubmitted,
-                          child: Text("登录"),
+                          child: const Text("登录"),
                         ),
                       ),
                     ],

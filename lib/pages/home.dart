@@ -9,7 +9,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({required Key key, required this.title}) : super(key: key);
+  const HomePage({required Key key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -55,21 +55,21 @@ class _HomePageState extends State<HomePage> {
     showGeneralDialog(
         context: context,
         barrierDismissible: false,
-        barrierColor: Color.fromRGBO(0, 0, 0, 0.5),
-        transitionDuration: new Duration(milliseconds: 300),
+        barrierColor: const Color.fromRGBO(0, 0, 0, 0.5),
+        transitionDuration: const Duration(milliseconds: 300),
         pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-          return new Column(
+          return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Container(
+              Container(
                 padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * (26 / 375)),
                 width: MediaQuery.of(context).size.width * (180 / 375),
                 height: MediaQuery.of(context).size.width * (200 / 375),
-                color: Color(0xffffffff),
+                color: const Color(0xffffffff),
                 child: Column(
                   children: <Widget>[
                     GestureDetector(
-                      child: Image(image: AssetImage('assets/images/erweima.png')),
+                      child: const Image(image: AssetImage('assets/images/erweima.png')),
                       onLongPress: _showDownQR,
                     ),
                     Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * (16 / 375))),
@@ -77,17 +77,17 @@ class _HomePageState extends State<HomePage> {
                       '微信添加好友，了解详情',
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * (12 / 375),
-                          color: Color(0xFF333333)
+                          color: const Color(0xFF333333)
                       ),
                     )
                   ],
                 ),
               ),
-              new Container(
+              Container(
                 margin: EdgeInsets.only(top: MediaQuery.of(context).size.width * (20 / 375)),
-                child: new GestureDetector(
+                child: GestureDetector(
                   onTap: () => Navigator.pop(context),
-                  child: Image(image: AssetImage('assets/images/close.png')),
+                  child: const Image(image: AssetImage('assets/images/close.png')),
                 ),
               )
             ],
@@ -99,17 +99,15 @@ class _HomePageState extends State<HomePage> {
   _showDownQR() {
     showCupertinoModalPopup(context: context, builder: (context) {
       return CupertinoActionSheet(
-        title: Text('操作'),
+        title: const Text('操作'),
         cancelButton: CupertinoActionSheetAction(
           onPressed: () => Navigator.pop(context),
-          child: Text('取消'),
+          child: const Text('取消'),
         ),
         actions: <Widget>[
-          Container(
-            child: CupertinoActionSheetAction(
-              onPressed: _downloadImage,
-              child: Text('下载二维码'),
-            ),
+          CupertinoActionSheetAction(
+            onPressed: _downloadImage,
+            child: const Text('下载二维码'),
           )
         ],
       );
@@ -124,30 +122,30 @@ class _HomePageState extends State<HomePage> {
       final result = await ImageGallerySaver.saveImage(bytes.buffer.asUint8List());
       if (result['isSuccess']) {
         showCupertinoDialog(context: context, builder: (BuildContext context){
-          return new CupertinoAlertDialog(
+          return const CupertinoAlertDialog(
             content: Text('下载完成，请到相册查看'),
           );
         });
-        new Timer(new Duration(seconds: 2), () {
+        Timer(const Duration(seconds: 2), () {
           Navigator.pop(context);
         });
       } else {
         showCupertinoDialog(context: context, builder: (BuildContext context){
-          return new CupertinoAlertDialog(
+          return const CupertinoAlertDialog(
             content: Text('下载失败'),
           );
         });
-        new Timer(new Duration(seconds: 2), () {
+        Timer(const Duration(seconds: 2), () {
           Navigator.pop(context);
         });
       }
     } else {
       showCupertinoDialog(context: context, builder: (BuildContext context){
-        return new CupertinoAlertDialog(
+        return const CupertinoAlertDialog(
           content: Text('请检查图库权限'),
         );
       });
-      new Timer(new Duration(seconds: 2), () {
+      Timer(const Duration(seconds: 2), () {
         Navigator.pop(context);
       });
     }
@@ -157,25 +155,25 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: Color.fromRGBO(255, 255, 255, 0.5),
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.5),
         middle: Text(widget.title),
-        trailing: new CupertinoButton(
-          padding: EdgeInsets.symmetric(vertical: 0),
+        trailing: CupertinoButton(
+          padding: const EdgeInsets.symmetric(vertical: 0),
           pressedOpacity: 0.5,
           onPressed: _handleLogout,
-          child: Text("退出"),
+          child: const Text("退出"),
         ),
       ),
       child: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              new Container(
+              Container(
                 constraints: BoxConstraints(
                   minWidth: MediaQuery.of(context).size.width,
                   minHeight: MediaQuery.of(context).size.width * 0.4207,
                 ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/bg.png'),
                     alignment: Alignment.topCenter,
@@ -185,25 +183,25 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    new Container(
+                    Container(
                       width: MediaQuery.of(context).size.width * (343 / 375),
                       margin: EdgeInsets.symmetric(
                         vertical: MediaQuery.of(context).size.width * (40 / 375),
                       ),
-                      child: new Row(
+                      child: Row(
                         children: <Widget>[
                           Expanded(
-                            child: new Column(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                new Text(
-                                  '$_company',
+                                Text(
+                                  _company,
                                   style: TextStyle(
                                     color: CupertinoColors.white,
                                     fontSize: MediaQuery.of(context).size.width * (17 / 375),
                                   ),
                                 ),
-                                new Text(
+                                Text(
                                   '$_create注册',
                                   style: TextStyle(
                                     color: CupertinoColors.white,
@@ -213,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
-                          new GestureDetector(
+                          GestureDetector(
                             onTap: _showQR,
                             child: Container(
                               alignment: Alignment.center,
@@ -221,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                               height: MediaQuery.of(context).size.width * (35 / 375),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color(0xFFE0B66D),
+                                  color: const Color(0xFFE0B66D),
                                   width: 1.0,
                                 ),
                               ),
@@ -229,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                                 '充值',
                                 style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.width * (15 / 375),
-                                  color: Color(0xFFE0B66D),
+                                  color: const Color(0xFFE0B66D),
                                 ),
                               ),
                             ),
@@ -237,75 +235,75 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    new ListBody(
+                    ListBody(
                       children: <Widget>[
-                        new VoucherWidget(
+                        VoucherWidget(
                           amount: 500,
                           quota: 5000,
-                          amountColor: Color.fromRGBO(102, 102, 102, 1),
-                          buttonColor: Color.fromRGBO(153, 153, 153, 1),
-                          buttonFontColor: Color.fromRGBO(255, 255, 255, 1),
-                          textColor: [
+                          amountColor: const Color.fromRGBO(102, 102, 102, 1),
+                          buttonColor: const Color.fromRGBO(153, 153, 153, 1),
+                          buttonFontColor: const Color.fromRGBO(255, 255, 255, 1),
+                          textColor: const [
                             Color.fromRGBO(51, 51, 51, 1),
                             Color.fromRGBO(102, 102, 102, 1),
                             Color.fromRGBO(102, 102, 102, 1)
                           ],
                         ),
-                        new VoucherWidget(
+                        VoucherWidget(
                           amount: 600,
                           quota: 10000,
-                          amountColor: Color.fromRGBO(204, 204, 204, 1),
-                          buttonColor: Color.fromRGBO(153, 153, 153, 1),
-                          buttonFontColor: Color.fromRGBO(255, 255, 255, 1),
-                          textColor: [
+                          amountColor: const Color.fromRGBO(204, 204, 204, 1),
+                          buttonColor: const Color.fromRGBO(153, 153, 153, 1),
+                          buttonFontColor: const Color.fromRGBO(255, 255, 255, 1),
+                          textColor: const [
                             Color.fromRGBO(255, 255, 255, 1),
                             Color.fromRGBO(204, 204, 204, 1),
                             Color.fromRGBO(204, 204, 204, 1)
                           ],
                         ),
-                        new VoucherWidget(
+                        VoucherWidget(
                           amount: 600,
                           quota: 10000,
-                          amountColor: Color.fromRGBO(204, 204, 204, 1),
-                          buttonColor: Color.fromRGBO(153, 153, 153, 1),
-                          buttonFontColor: Color.fromRGBO(255, 255, 255, 1),
-                          textColor: [
+                          amountColor: const Color.fromRGBO(204, 204, 204, 1),
+                          buttonColor: const Color.fromRGBO(153, 153, 153, 1),
+                          buttonFontColor: const Color.fromRGBO(255, 255, 255, 1),
+                          textColor: const [
                             Color.fromRGBO(255, 255, 255, 1),
                             Color.fromRGBO(204, 204, 204, 1),
                             Color.fromRGBO(204, 204, 204, 1)
                           ],
                         ),
-                        new VoucherWidget(
+                        VoucherWidget(
                           amount: 2000,
                           quota: 30000,
-                          amountColor: Color.fromRGBO(224, 182, 109, 1),
-                          buttonColor: Color.fromRGBO(100, 100, 100, 1),
-                          buttonFontColor: Color.fromRGBO(255, 255, 255, 1),
-                          textColor: [
+                          amountColor: const Color.fromRGBO(224, 182, 109, 1),
+                          buttonColor: const Color.fromRGBO(100, 100, 100, 1),
+                          buttonFontColor: const Color.fromRGBO(255, 255, 255, 1),
+                          textColor: const [
                             Color.fromRGBO(224, 182, 109, 1),
                             Color.fromRGBO(224, 182, 109, 1),
                             Color.fromRGBO(224, 182, 109, 1)
                           ],
                         ),
-                        new VoucherWidget(
+                        VoucherWidget(
                           amount: 2000,
                           quota: 30000,
-                          amountColor: Color.fromRGBO(224, 182, 109, 1),
-                          buttonColor: Color.fromRGBO(100, 100, 100, 1),
-                          buttonFontColor: Color.fromRGBO(255, 255, 255, 1),
-                          textColor: [
+                          amountColor: const Color.fromRGBO(224, 182, 109, 1),
+                          buttonColor: const Color.fromRGBO(100, 100, 100, 1),
+                          buttonFontColor: const Color.fromRGBO(255, 255, 255, 1),
+                          textColor: const [
                             Color.fromRGBO(224, 182, 109, 1),
                             Color.fromRGBO(224, 182, 109, 1),
                             Color.fromRGBO(224, 182, 109, 1)
                           ],
                         ),
-                        new VoucherWidget(
+                        VoucherWidget(
                           amount: 4500,
                           quota: 60000,
-                          amountColor: Color.fromRGBO(51, 51, 51, 1),
-                          buttonColor: Color(0xFFFFE5B7),
-                          buttonFontColor: Color.fromRGBO(102, 102, 102, 1),
-                          textColor: [
+                          amountColor: const Color.fromRGBO(51, 51, 51, 1),
+                          buttonColor: const Color(0xFFFFE5B7),
+                          buttonFontColor: const Color.fromRGBO(102, 102, 102, 1),
+                          textColor: const [
                             Color.fromRGBO(51, 51, 51, 1),
                             Color.fromRGBO(102, 102, 102, 1),
                             Color.fromRGBO(102, 102, 102, 1)
@@ -343,7 +341,7 @@ class VoucherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Container(
+    return Container(
       width: MediaQuery.of(context).size.width * (343 / 375),
       height: MediaQuery.of(context).size.width * (169 / 375),
       padding: EdgeInsets.only(
@@ -361,28 +359,28 @@ class VoucherWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          new Row(
+          Row(
             children: <Widget>[
               Expanded(
-                child: new Text(
+                child: Text(
                   '￥$amount',
-                  style: new TextStyle(
+                  style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * (30 / 375),
                       color: amountColor,
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width * (100 / 375),
                 height: MediaQuery.of(context).size.width * (35 / 375),
-                child: new CupertinoButton(
-                  padding: EdgeInsets.symmetric(vertical: 0),
+                child: CupertinoButton(
+                  padding: const EdgeInsets.symmetric(vertical: 0),
                   onPressed: () => {},
                   pressedOpacity: 1,
                   color: buttonColor,
                   child: Text(
                     '已领取',
-                    style: new TextStyle(
+                    style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * (15 / 375),
                       color: buttonFontColor,
                     ),
@@ -392,21 +390,21 @@ class VoucherWidget extends StatelessWidget {
             ],
           ),
           Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * (25 / 375))),
-          new Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               Text('单笔订单满$quota可使用',
-                style: new TextStyle(
+                style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * (13 / 375),
                   color: textColor[0],
                 ),),
               Text('此代金券暂不支持对接类服务使用',
-                style: new TextStyle(
+                style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * (11 / 375),
                   color: textColor[1],
                 ),),
               Text('有效期至：2019年3月15日',
-                style: new TextStyle(
+                style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * (11 / 375),
                   color: textColor[2],
                 ),)

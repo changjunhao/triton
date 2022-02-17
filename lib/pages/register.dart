@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'dart:async';
 import '../utils/request.dart';
 
@@ -52,7 +53,9 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future _handleRegister() async {
-    print(_phone);
+    if (kDebugMode) {
+      print(_phone);
+    }
     Response response = await dio.post(
         '/index.php/index/login/RegisterWithMessageCode',
         data: {
@@ -66,12 +69,12 @@ class _RegisterPageState extends State<RegisterPage> {
     }
     if (response.data['errno'] == -3) {
       Future result = await showCupertinoDialog(context: context, builder: (BuildContext context){
-        return new CupertinoAlertDialog(
-            content: Text('已注册，请登录'),
+        return CupertinoAlertDialog(
+            content: const Text('已注册，请登录'),
             actions: <Widget>[
               CupertinoDialogAction(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text('登录'),
+                child: const Text('登录'),
               )
             ]
         );
@@ -79,11 +82,11 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.of(context).pop(result);
     }
     showCupertinoDialog(context: context, builder: (BuildContext context){
-      return new CupertinoAlertDialog(
+      return CupertinoAlertDialog(
         content: Text(response.data['errmsg']),
       );
     });
-    new Timer(new Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pop(context);
     });
   }
@@ -91,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Future _handleGetCode() async {
     _seconds = 60;
 
-    _timer = new Timer.periodic(new Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_seconds == 0) {
         _cancelTimer();
         return;
@@ -114,11 +117,11 @@ class _RegisterPageState extends State<RegisterPage> {
     if (response.data['errno'] != 0) {
       _cancelTimer();
       showCupertinoDialog(context: context, builder: (BuildContext context){
-        return new CupertinoAlertDialog(
+        return CupertinoAlertDialog(
           content: Text(response.data['errmsg']),
         );
       });
-      new Timer(new Duration(seconds: 2), () {
+      Timer(const Duration(seconds: 2), () {
         Navigator.pop(context);
       });
     }
@@ -139,30 +142,30 @@ class _RegisterPageState extends State<RegisterPage> {
       child: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20),
-          margin: EdgeInsets.symmetric(horizontal: 36),
+          margin: const EdgeInsets.symmetric(horizontal: 36),
           alignment: Alignment.center,
           child: Column(
             children: <Widget>[
-              new Container(
-                margin: EdgeInsets.only(top: 44.0),
+              Container(
+                margin: const EdgeInsets.only(top: 44.0),
                 height: 46,
                 child: CupertinoTextField(
-                  padding: EdgeInsets.only(left: 15.0),
+                  padding: const EdgeInsets.only(left: 15.0),
                   keyboardType: TextInputType.phone,
                   maxLength: 11,
                   placeholder: '请输入手机号',
                   onChanged: _handlePhone,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color.fromRGBO(51, 51, 51, 1),
                     fontSize: 15,
                   ),
                   prefix: Container(
                     height: 46,
                     width: 73,
-                    color: Color.fromRGBO(219, 219, 219, 1),
+                    color: const Color.fromRGBO(219, 219, 219, 1),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
+                      children: const <Widget>[
                         Text('+86',
                           style: TextStyle(
                             color: Color.fromRGBO(51, 51, 51, 1),
@@ -172,96 +175,96 @@ class _RegisterPageState extends State<RegisterPage> {
                       ],
                     ),
                   ),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: null,
                       color: Color.fromRGBO(242, 242, 242, 1)
                   ),
                 ),
               ),
-              new Container(
-                margin: EdgeInsets.only(top: 20.0),
+              Container(
+                margin: const EdgeInsets.only(top: 20.0),
                 height: 46,
                 child: CupertinoTextField(
-                  padding: EdgeInsets.only(left: 15.0),
+                  padding: const EdgeInsets.only(left: 15.0),
                   keyboardType: TextInputType.number,
                   placeholder: '请输入验证码',
                   onChanged: _handleCode,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color.fromRGBO(51, 51, 51, 1),
                     fontSize: 15,
                   ),
-                  suffix: Container(
+                  suffix: SizedBox(
                     height: 46,
                     width: 115,
-                    child: new Row(
+                    child: Row(
                       children: <Widget>[
-                        new Expanded(
-                          child: new CupertinoButton(
-                            padding: EdgeInsets.all(0),
+                        Expanded(
+                          child: CupertinoButton(
+                            padding: const EdgeInsets.all(0),
                             borderRadius: null,
-                            color: Color.fromRGBO(224, 182, 109, 1),
+                            color: const Color.fromRGBO(224, 182, 109, 1),
                             pressedOpacity: 0.5,
                             onPressed: _seconds == 0 ? _handleGetCode : null,
-                            child: Text(_verifyStr, style: TextStyle(fontSize: 15),
+                            child: Text(_verifyStr, style: const TextStyle(fontSize: 15),
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: null,
                       color: Color.fromRGBO(242, 242, 242, 1)
                   ),
                 ),
               ),
-              new Container(
-                margin: EdgeInsets.only(top: 20.0),
+              Container(
+                margin: const EdgeInsets.only(top: 20.0),
                 height: 46,
                 child: CupertinoTextField(
-                  padding: EdgeInsets.only(left: 15.0),
+                  padding: const EdgeInsets.only(left: 15.0),
                   placeholder: '设置密码',
                   obscureText: true,
                   onChanged: _handlePassword,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color.fromRGBO(51, 51, 51, 1),
                     fontSize: 15,
                   ),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: null,
                       color: Color.fromRGBO(242, 242, 242, 1)
                   ),
                 ),
               ),
-              new Container(
-                margin: EdgeInsets.only(top: 20.0),
+              Container(
+                margin: const EdgeInsets.only(top: 20.0),
                 height: 46,
                 child: CupertinoTextField(
-                  padding: EdgeInsets.only(left: 15.0),
+                  padding: const EdgeInsets.only(left: 15.0),
                   placeholder: '确认密码',
                   obscureText: true,
                   onChanged: _handlePasswordRepeat,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color.fromRGBO(51, 51, 51, 1),
                     fontSize: 15,
                   ),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: null,
                       color: Color.fromRGBO(242, 242, 242, 1)
                   ),
                 ),
               ),
-              new Container(
-                margin: EdgeInsets.only(top: 30.0),
+              Container(
+                margin: const EdgeInsets.only(top: 30.0),
                 alignment: Alignment.center,
-                child: new Row(
+                child: Row(
                   children: <Widget>[
-                    new Expanded(
-                      child: new CupertinoButton(
-                        color: Color.fromRGBO(224, 182, 109, 1),
+                    Expanded(
+                      child: CupertinoButton(
+                        color: const Color.fromRGBO(224, 182, 109, 1),
                         pressedOpacity: 0.5,
                         onPressed: _handleRegister,
-                        child: Text("完成"),
+                        child: const Text("完成"),
                       ),
                     ),
                   ],
