@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:async';
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -14,10 +14,10 @@ class HomePage extends StatefulWidget {
   final String title;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   String _company = '';
   String _create = '';
 
@@ -43,10 +43,11 @@ class _HomePageState extends State<HomePage> {
     Future.wait(returnTickets).then((result) async {
       Directory appDocDir = result[0];
       String appDocPath = appDocDir.path;
-      final cj = PersistCookieJar(ignoreExpires: true, storage: FileStorage(appDocPath +"/.cookies/" ));
+      final cj = PersistCookieJar(ignoreExpires: true, storage: FileStorage("$appDocPath/.cookies/" ));
       cj.delete(Uri.parse('https://vip.meimiaoip.com'));
       SharedPreferences prefs = result[1];
       await prefs.clear();
+      if (!mounted) return;
       Navigator.of(context).pushReplacementNamed('/login');
     });
   }
@@ -69,8 +70,8 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: <Widget>[
                     GestureDetector(
-                      child: const Image(image: AssetImage('assets/images/erweima.png')),
                       onLongPress: _showDownQR,
+                      child: const Image(image: AssetImage('assets/images/erweima.png')),
                     ),
                     Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * (16 / 375))),
                     Text(
@@ -118,6 +119,7 @@ class _HomePageState extends State<HomePage> {
     Navigator.pop(context);
     Map<Permission, PermissionStatus> statuses = await [Permission.photos].request();
     if (statuses[Permission.photos] == PermissionStatus.granted) {
+      if (!mounted) return;
       final bytes = await DefaultAssetBundle.of(context).load('assets/images/3x/erweima.png');
       final result = await ImageGallerySaver.saveImage(bytes.buffer.asUint8List());
       if (result['isSuccess']) {
@@ -236,14 +238,14 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     ListBody(
-                      children: <Widget>[
+                      children: const <Widget>[
                         VoucherWidget(
                           amount: 500,
                           quota: 5000,
-                          amountColor: const Color.fromRGBO(102, 102, 102, 1),
-                          buttonColor: const Color.fromRGBO(153, 153, 153, 1),
-                          buttonFontColor: const Color.fromRGBO(255, 255, 255, 1),
-                          textColor: const [
+                          amountColor: Color.fromRGBO(102, 102, 102, 1),
+                          buttonColor: Color.fromRGBO(153, 153, 153, 1),
+                          buttonFontColor: Color.fromRGBO(255, 255, 255, 1),
+                          textColor: [
                             Color.fromRGBO(51, 51, 51, 1),
                             Color.fromRGBO(102, 102, 102, 1),
                             Color.fromRGBO(102, 102, 102, 1)
@@ -252,10 +254,10 @@ class _HomePageState extends State<HomePage> {
                         VoucherWidget(
                           amount: 600,
                           quota: 10000,
-                          amountColor: const Color.fromRGBO(204, 204, 204, 1),
-                          buttonColor: const Color.fromRGBO(153, 153, 153, 1),
-                          buttonFontColor: const Color.fromRGBO(255, 255, 255, 1),
-                          textColor: const [
+                          amountColor: Color.fromRGBO(204, 204, 204, 1),
+                          buttonColor: Color.fromRGBO(153, 153, 153, 1),
+                          buttonFontColor: Color.fromRGBO(255, 255, 255, 1),
+                          textColor: [
                             Color.fromRGBO(255, 255, 255, 1),
                             Color.fromRGBO(204, 204, 204, 1),
                             Color.fromRGBO(204, 204, 204, 1)
@@ -264,10 +266,10 @@ class _HomePageState extends State<HomePage> {
                         VoucherWidget(
                           amount: 600,
                           quota: 10000,
-                          amountColor: const Color.fromRGBO(204, 204, 204, 1),
-                          buttonColor: const Color.fromRGBO(153, 153, 153, 1),
-                          buttonFontColor: const Color.fromRGBO(255, 255, 255, 1),
-                          textColor: const [
+                          amountColor: Color.fromRGBO(204, 204, 204, 1),
+                          buttonColor: Color.fromRGBO(153, 153, 153, 1),
+                          buttonFontColor: Color.fromRGBO(255, 255, 255, 1),
+                          textColor: [
                             Color.fromRGBO(255, 255, 255, 1),
                             Color.fromRGBO(204, 204, 204, 1),
                             Color.fromRGBO(204, 204, 204, 1)
@@ -276,10 +278,10 @@ class _HomePageState extends State<HomePage> {
                         VoucherWidget(
                           amount: 2000,
                           quota: 30000,
-                          amountColor: const Color.fromRGBO(224, 182, 109, 1),
-                          buttonColor: const Color.fromRGBO(100, 100, 100, 1),
-                          buttonFontColor: const Color.fromRGBO(255, 255, 255, 1),
-                          textColor: const [
+                          amountColor: Color.fromRGBO(224, 182, 109, 1),
+                          buttonColor: Color.fromRGBO(100, 100, 100, 1),
+                          buttonFontColor: Color.fromRGBO(255, 255, 255, 1),
+                          textColor: [
                             Color.fromRGBO(224, 182, 109, 1),
                             Color.fromRGBO(224, 182, 109, 1),
                             Color.fromRGBO(224, 182, 109, 1)
@@ -288,10 +290,10 @@ class _HomePageState extends State<HomePage> {
                         VoucherWidget(
                           amount: 2000,
                           quota: 30000,
-                          amountColor: const Color.fromRGBO(224, 182, 109, 1),
-                          buttonColor: const Color.fromRGBO(100, 100, 100, 1),
-                          buttonFontColor: const Color.fromRGBO(255, 255, 255, 1),
-                          textColor: const [
+                          amountColor: Color.fromRGBO(224, 182, 109, 1),
+                          buttonColor: Color.fromRGBO(100, 100, 100, 1),
+                          buttonFontColor: Color.fromRGBO(255, 255, 255, 1),
+                          textColor: [
                             Color.fromRGBO(224, 182, 109, 1),
                             Color.fromRGBO(224, 182, 109, 1),
                             Color.fromRGBO(224, 182, 109, 1)
@@ -300,10 +302,10 @@ class _HomePageState extends State<HomePage> {
                         VoucherWidget(
                           amount: 4500,
                           quota: 60000,
-                          amountColor: const Color.fromRGBO(51, 51, 51, 1),
-                          buttonColor: const Color(0xFFFFE5B7),
-                          buttonFontColor: const Color.fromRGBO(102, 102, 102, 1),
-                          textColor: const [
+                          amountColor: Color.fromRGBO(51, 51, 51, 1),
+                          buttonColor: Color(0xFFFFE5B7),
+                          buttonFontColor: Color.fromRGBO(102, 102, 102, 1),
+                          textColor: [
                             Color.fromRGBO(51, 51, 51, 1),
                             Color.fromRGBO(102, 102, 102, 1),
                             Color.fromRGBO(102, 102, 102, 1)
@@ -323,7 +325,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 class VoucherWidget extends StatelessWidget {
-  VoucherWidget({
+  const VoucherWidget({
+    super.key,
     required this.amount,
     required this.quota,
     required this.amountColor,

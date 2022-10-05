@@ -5,15 +5,15 @@ import 'dart:async';
 import '../utils/request.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({required Key key, required this.title}) : super(key: key);
+  const RegisterPage({required Key key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class RegisterPageState extends State<RegisterPage> {
 
   String _phone = '';
   String _password = '';
@@ -65,6 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
           'code': _code
         });
     if (response.data['errno'] == 0) {
+      if (!mounted) return;
       Navigator.of(context).pushReplacementNamed('/info');
     }
     if (response.data['errno'] == -3) {
@@ -79,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ]
         );
       });
+      if (!mounted) return;
       Navigator.of(context).pop(result);
     }
     showCupertinoDialog(context: context, builder: (BuildContext context){

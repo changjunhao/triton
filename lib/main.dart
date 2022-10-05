@@ -17,11 +17,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Directory appDocDir = await getApplicationDocumentsDirectory();
   String appDocPath = appDocDir.path;
-  var cj = PersistCookieJar(ignoreExpires: true, storage: FileStorage(appDocPath +"/.cookies/" ));
+  var cj = PersistCookieJar(ignoreExpires: true, storage: FileStorage("$appDocPath/.cookies/" ));
 
   dio.interceptors..add(CookieManager(cj))..add(LogInterceptor());
 
-  Future<bool> _getLoginStatus() async {
+  Future<bool> getLoginStatus() async {
     List<Cookie> results = await cj.loadForRequest(Uri.parse('https://vip.meimiaoip.com'));
     try {
       Cookie usersign = results.firstWhere((Cookie cookie) => cookie.toString().contains('usersign'));
@@ -33,7 +33,7 @@ void main() async {
       return false;
     }
   }
-  Future<bool> _getInfoStatus() async {
+  Future<bool> getInfoStatus() async {
     Response response = await dio.get('/index.php/index/user/UserInfo');
     if(response.data['data']['status'] == 0) {
       return false;
@@ -49,16 +49,16 @@ void main() async {
     }
   }
 
-  final _loginStatus = await _getLoginStatus();
-  if (!_loginStatus) {
-    return runApp(TritonApp(_loginStatus, false));
+  final loginStatus = await getLoginStatus();
+  if (!loginStatus) {
+    return runApp(TritonApp(loginStatus, false));
   }
-  final _infoStatus = await _getInfoStatus();
-  return runApp(TritonApp(_loginStatus, _infoStatus));
+  final infoStatus = await getInfoStatus();
+  return runApp(TritonApp(loginStatus, infoStatus));
 }
 
 class TritonApp extends StatelessWidget {
-  TritonApp(this.loginStatus, this.infoStatus);
+  const TritonApp(this.loginStatus, this.infoStatus, {super.key});
   final bool loginStatus;
   final bool infoStatus;
   final String title = '美秒新营销';
@@ -67,13 +67,13 @@ class TritonApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, WidgetBuilder> routes = {
       '/home': (BuildContext context) => HomePage(title: title, key: const Key("Home"),),
-      '/login': (BuildContext context) => Login(title: '登录', key: const Key("Login"),),
-      '/info': (BuildContext context) => InfoPage(title: '企业信息', key: const Key("Info"),),
-      '/register': (BuildContext context) => RegisterPage(title: '注册', key: const Key("Register"),),
+      '/login': (BuildContext context) => const Login(title: '登录', key: Key("Login"),),
+      '/info': (BuildContext context) => const InfoPage(title: '企业信息', key: Key("Info"),),
+      '/register': (BuildContext context) => const RegisterPage(title: '注册', key: Key("Register"),),
     };
     final Widget home = loginStatus
-        ? infoStatus ? HomePage(title: title, key: const Key("Home"),) : InfoPage(title: '企业信息', key: const Key("Info"),)
-        : Login(title: '登录', key: const Key("Login"),);
+        ? infoStatus ? HomePage(title: title, key: const Key("Home"),) : const InfoPage(title: '企业信息', key: Key("Info"),)
+        : const Login(title: '登录', key: Key("Login"),);
 
     if (Platform.isIOS) {
       return CupertinoApp(

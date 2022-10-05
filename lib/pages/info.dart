@@ -7,15 +7,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/request.dart';
 
 class InfoPage extends StatefulWidget {
-  InfoPage({required Key key, required this.title}) : super(key: key);
+  const InfoPage({required Key key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _InfoPageState createState() => _InfoPageState();
+  InfoPageState createState() => InfoPageState();
 }
 
-class _InfoPageState extends State<InfoPage> {
+class InfoPageState extends State<InfoPage> {
 
   String _company = '';
   String _name = '';
@@ -59,6 +59,7 @@ class _InfoPageState extends State<InfoPage> {
         response.data['data']['company'],
         '${dataTime.year}-${dataTime.month}-${dataTime.day}'
       ]);
+      if (!mounted) return;
       Navigator.of(context).pushReplacementNamed('/home');
     }
   }

@@ -12,13 +12,15 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # build by specifying --build-name and --build-number, respectively.
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: '>=2.18.2 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,12 +36,12 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.4
+  cupertino_icons: ^1.0.5
   dio: ^4.0.6
-  path_provider: ^2.0.10
+  path_provider: ^2.0.11
   shared_preferences: ^2.0.15
   image_gallery_saver: ^1.7.1
-  permission_handler: ^9.0.2
+  permission_handler: ^10.1.0
   dio_cookie_manager: ^2.0.0
   cookie_jar: ^3.0.1
 
@@ -57,7 +59,7 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
+# The following section is specific to Flutter packages.
 flutter:
 
   # The following line ensures that the Material Icons font is

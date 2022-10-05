@@ -6,15 +6,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/request.dart';
 
 class Login extends StatefulWidget {
-  Login({required Key key, required this.title}) : super(key: key);
+  const Login({required Key key, required this.title}) : super(key: key);
 
   final String title;
   
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<Login> {
+class LoginPageState extends State<Login> {
 
   String _phone = '';
   String _password = '';
@@ -44,8 +44,10 @@ class _LoginPageState extends State<Login> {
           info.data['data']['company'],
           '${dataTime.year}-${dataTime.month}-${dataTime.day}'
         ]);
+        if (!mounted) return;
         Navigator.of(context).pushReplacementNamed('/home');
       } else {
+        if (!mounted) return;
         Navigator.of(context).pushReplacementNamed('/info');
       }
     }
