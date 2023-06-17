@@ -122,8 +122,9 @@ class HomePageState extends State<HomePage> {
       if (!mounted) return;
       final bytes = await DefaultAssetBundle.of(context).load('assets/images/3x/erweima.png');
       final result = await ImageGallerySaver.saveImage(bytes.buffer.asUint8List());
+      if (!mounted) return;
       if (result['isSuccess']) {
-        showCupertinoDialog(context: context, builder: (BuildContext context){
+        showCupertinoDialog(context: context, builder: (BuildContext context) {
           return const CupertinoAlertDialog(
             content: Text('下载完成，请到相册查看'),
           );
@@ -142,6 +143,7 @@ class HomePageState extends State<HomePage> {
         });
       }
     } else {
+      if (!mounted) return;
       showCupertinoDialog(context: context, builder: (BuildContext context){
         return const CupertinoAlertDialog(
           content: Text('请检查图库权限'),
@@ -237,8 +239,8 @@ class HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    ListBody(
-                      children: const <Widget>[
+                    const ListBody(
+                      children: <Widget>[
                         VoucherWidget(
                           amount: 500,
                           quota: 5000,

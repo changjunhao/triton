@@ -1,6 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.ifable.triton">
-   <application
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
         android:label="triton"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

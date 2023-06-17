@@ -51,6 +51,7 @@ class LoginPageState extends State<Login> {
         Navigator.of(context).pushReplacementNamed('/info');
       }
     }
+    if (!mounted) return;
     if (response.data['errno'] != 0) {
       showCupertinoDialog(context: context, builder: (BuildContext context){
         return CupertinoAlertDialog(
@@ -110,9 +111,9 @@ class LoginPageState extends State<Login> {
                       height: 46,
                       width: 73,
                       color: const Color.fromRGBO(219, 219, 219, 1),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
+                        children: <Widget>[
                           Text('+86',
                             style: TextStyle(
                               color: Color.fromRGBO(51, 51, 51, 1),

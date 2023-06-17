@@ -42,6 +42,7 @@ class InfoPageState extends State<InfoPage> {
     if (kDebugMode) {
       print(response);
     }
+    if (!mounted) return;
     if (response.data['errno'] != 0) {
       showCupertinoDialog(context: context, builder: (BuildContext context){
         return CupertinoAlertDialog(
@@ -78,8 +79,8 @@ class InfoPageState extends State<InfoPage> {
                 key: _infoFormKey,
                 child: Column(
                   children: <Widget>[
-                    Row(
-                      children: const <Widget>[
+                    const Row(
+                      children: <Widget>[
                         Icon(
                           IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
@@ -117,8 +118,8 @@ class InfoPageState extends State<InfoPage> {
                         ),
                       ),
                     ),
-                    Row(
-                      children: const <Widget>[
+                    const Row(
+                      children: <Widget>[
                         Icon(
                           IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
@@ -156,8 +157,8 @@ class InfoPageState extends State<InfoPage> {
                         ),
                       ),
                     ),
-                    Row(
-                      children: const <Widget>[
+                    const Row(
+                      children: <Widget>[
                         Icon(
                           IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
@@ -196,8 +197,8 @@ class InfoPageState extends State<InfoPage> {
                         ),
                       ),
                     ),
-                    Row(
-                      children: const <Widget>[
+                    const Row(
+                      children: <Widget>[
                         Icon(
                           IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
@@ -236,8 +237,8 @@ class InfoPageState extends State<InfoPage> {
                         ),
                       ),
                     ),
-                    Row(
-                      children: const <Widget>[
+                    const Row(
+                      children: <Widget>[
                         Icon(
                           IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),
@@ -275,8 +276,8 @@ class InfoPageState extends State<InfoPage> {
                         ),
                       ),
                     ),
-                    Row(
-                      children: const <Widget>[
+                    const Row(
+                      children: <Widget>[
                         Icon(
                           IconData(0xe885, fontFamily: 'MaterialIcons'),
                           color: Color.fromRGBO(255, 79, 79, 1),

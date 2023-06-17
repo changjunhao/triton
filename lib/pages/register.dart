@@ -68,6 +68,7 @@ class RegisterPageState extends State<RegisterPage> {
       if (!mounted) return;
       Navigator.of(context).pushReplacementNamed('/info');
     }
+    if (!mounted) return;
     if (response.data['errno'] == -3) {
       Future result = await showCupertinoDialog(context: context, builder: (BuildContext context){
         return CupertinoAlertDialog(
@@ -83,6 +84,7 @@ class RegisterPageState extends State<RegisterPage> {
       if (!mounted) return;
       Navigator.of(context).pop(result);
     }
+    if (!mounted) return;
     showCupertinoDialog(context: context, builder: (BuildContext context){
       return CupertinoAlertDialog(
         content: Text(response.data['errmsg']),
@@ -118,6 +120,7 @@ class RegisterPageState extends State<RegisterPage> {
         queryParameters: {'phone': _phone});
     if (response.data['errno'] != 0) {
       _cancelTimer();
+      if (!mounted) return;
       showCupertinoDialog(context: context, builder: (BuildContext context){
         return CupertinoAlertDialog(
           content: Text(response.data['errmsg']),
@@ -165,9 +168,9 @@ class RegisterPageState extends State<RegisterPage> {
                     height: 46,
                     width: 73,
                     color: const Color.fromRGBO(219, 219, 219, 1),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Text('+86',
                           style: TextStyle(
                             color: Color.fromRGBO(51, 51, 51, 1),
